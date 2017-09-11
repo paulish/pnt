@@ -3,7 +3,7 @@ const debug = require('debug')('pnt');
 const app = require('../app');
 
 let port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
-let ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
+let ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
 let server = app.listen(port, ip, function() {
   debug('Express server listening on port ' + server.address().port);
