@@ -1,9 +1,9 @@
-var path = require('path');
-var express = require('express');
-var logger = require('morgan');
-var compression = require('compression');
+const path = require('path');
+const express = require('express');
+const logger = require('morgan');
+const compression = require('compression');
 
-var app = express();
+let app = express();
 
 app.use(logger('dev'));
 app.use(compression());
