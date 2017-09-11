@@ -14,19 +14,19 @@ app.set('view engine', 'html');
 
 app.use('/', require('./routes/index'));
 
-app.use(express.static(path.join(__dirname, 'public'), {maxAge: 86400000}));
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: 86400000 }));
 
 /// catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.status(404);
-    res.render('404', {page: 'index'});
+    res.render('404', { page: 'index' });
 });
 
 /// error handlers
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
         page: 'error',
@@ -35,5 +35,13 @@ app.use(function(err, req, res, next) {
     });
     console.log(err);
 });
+
+let port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
+let ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
+
+let server = app.listen(port, ip, function () {
+    console.log('Express server listening on port ' + server.address().port);
+});
+console.log('Server running on http://%s:%s', ip, port);
 
 module.exports = app;
