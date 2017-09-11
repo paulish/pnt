@@ -1,0 +1,34 @@
+<% include header.html %>
+    <div class="container">
+        <table class="table table-bordered table-condensed">
+            <tr>                
+                <th colspan=2>Модуль</th>
+                <% for(var i=0; i < players.length; i++) { %>
+                    <th>
+                        <%=players[i]%>
+                    </th>
+                <% } %>
+                <% for(var i=0; i < modules.length; i++) { %>
+                    <tr>                        
+                        <td class='module-rank-<%=modules[i].rank%>'><%=modules[i].rank%> - <%=modules[i].name%></td>
+                        <td class='resistances_cell module-rank-<%=modules[i].rank%>'>
+                            <div class="resistances">
+                            <% if ( typeof modules[i].res !== 'undefined' )  { %>
+                                <% for(var j=0; j < modules[i].res.length; j++) { %>
+                                    <div class="resistance">
+                                        <div class='<%=modules[i].res[j]%>_resistance'></div>
+                                    </div>
+                                <% } %>        
+                            <% } else { %> 
+                            <%}%>
+                            </div>
+                        </td>
+                        <% for(var j=0; j < players.length; j++) { %>
+                            <% if ( modules[i].players.indexOf(players[j]) !== -1 )  { %> <td class='module-yes'> <% } else { %> <td class='module-no'> <%}%> </td>
+                        <% } %>
+                    </tr>
+                <% } %>                
+            </tr>
+        </table>
+    </div>
+<% include footer.html %>
