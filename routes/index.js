@@ -11,10 +11,12 @@ const players = [
     'CkuJIJIa_HET',
     'Kira-5let',
     'K_H_9l_3_b-T_b_M_bl',
+    'TerminatorTankOnline',
     'KaBka3ckuu_TIJIeHHuk',
     'KyKoJIkA',
     'C.0.H',
-    'D_O_H_6_A_C_C'
+    'D_O_H_6_A_C_C',
+    '6eru_OT-MeH9l'
 ];
 
 const extractRes = (props) => {
