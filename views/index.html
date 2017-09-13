@@ -1,5 +1,5 @@
 <% include header.html %>
-    <div class="container">
+    
         <table class="table table-bordered table-condensed">
             <tr>                
                 <th colspan=3>Модуль</th>
@@ -25,11 +25,11 @@
                             </div>
                         </td>
                         <% for(var j=0; j < players.length; j++) { %>
-                            <% if ( modules[i].players.indexOf(players[j]) !== -1 )  { %> <td class='module-yes'> <% } else { %> <td class='module-no'> <%}%> </td>
+                            <% if ( modules[i].players.indexOf(players[j]) !== -1 )  { %> <td class='module-<%=modules[i].times[modules[i].players.indexOf(players[j])] < 14400000 ? "new" : "yes"%>'> <% } else { %> <td class='module-no'> <%}%> </td>
                         <% } %>
                     </tr>
                 <% } %>                
             </tr>
         </table>
-    </div>
+    
 <% include footer.html %>

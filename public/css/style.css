@@ -1,12 +1,13 @@
-body {
-    padding-top: 50px;
-    padding-bottom: 40px;
+body {    
 }
 .nowrap {
     white-space: nowrap;
 }
 .module-yes {
     background-color: #980000;
+}
+.module-new {
+    background-color: #8E9800;
 }
 
 .module-no {

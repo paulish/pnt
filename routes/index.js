@@ -16,7 +16,11 @@ const players = [
     'KyKoJIkA',
     'C.0.H',
     'D_O_H_6_A_C_C',
-    '6eru_OT-MeH9l'
+    '6eru_OT-MeH9l',
+    '19980419',
+    'STASHABAILOV1111',
+    'TT_Y_LLL_U_C_T_U_K',
+    'tvoy_son'
 ];
 
 const extractRes = (props) => {
@@ -36,6 +40,7 @@ const handlePlayer = (resp, moduleNames, data) => {
                 let idx = moduleNames.indexOf(m.name);
                 if (idx !== -1) {
                     data.modules[idx].players.push(player.name);
+                    data.modules[idx].times.push(m.timePlayed);
                 } else if (m.properties.length === 3) {
                     idx = moduleNames.length;
                     moduleNames.push(m.name);
@@ -43,7 +48,8 @@ const handlePlayer = (resp, moduleNames, data) => {
                         name: m.name,
                         rank: 4,
                         res: extractRes(m.properties),
-                        players: [player.name]
+                        players: [player.name],
+                        times: [m.timePlayed]
                     })
                 }
             }
@@ -63,7 +69,8 @@ router.get('/', function (req, res) {
             name: m,
             rank: modules[m].rank,
             res: modules[m].res,
-            players: []
+            players: [],
+            times: []
         });
     }
 
