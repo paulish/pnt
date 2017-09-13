@@ -1,27 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const request = require('request-promise');
+const players = require('../lib/players');
 const modules = require('../lib/modules');
-
-const players = [
-    'paulish',
-    'A_G_R_O_N_O_M',
-    'kratasuk85',
-    'sherxan',
-    'CkuJIJIa_HET',
-    'Kira-5let',
-    'K_H_9l_3_b-T_b_M_bl',
-    'TerminatorTankOnline',
-    'KaBka3ckuu_TIJIeHHuk',
-    'KyKoJIkA',
-    'C.0.H',
-    'D_O_H_6_A_C_C',
-    '6eru_OT-MeH9l',
-    '19980419',
-    'STASHABAILOV1111',
-    'TT_Y_LLL_U_C_T_U_K',
-    'tvoy_son'
-];
+const turrets = require('../lib/turrets');
 
 const extractRes = (props) => {
     let res = [];
@@ -31,7 +13,7 @@ const extractRes = (props) => {
     return res;
 }
 
-const handlePlayer = (resp, moduleNames, data) => {
+const handlePlayer = (resp, moduleNames, turretNames, data) => {
     if (resp && resp.responseType === 'OK') {
         let player = resp.response;
         data.players.push(player.name);
@@ -54,6 +36,25 @@ const handlePlayer = (resp, moduleNames, data) => {
                 }
             }
         }
+        for (let t of player.turretsPlayed) {
+            if (t.grade === 3) {
+                let idx = turretNames.indexOf(t.name);
+                if (idx !== -1) {
+                    data.turrets[idx].players.push(player.name);
+                    data.turrets[idx].times.push(t.timePlayed);
+                } else {
+                    idx = turretNames.length;
+                    turretNames.push(t.name);
+                    data.turrets.push({
+                        name: t.name,
+                        rank: 4,
+                        id: '',
+                        players: [player.name],
+                        times: [t.timePlayed]
+                    })
+                }
+            }
+        }
     }
 }
 
@@ -61,7 +62,8 @@ router.get('/', function (req, res) {
     let data = {
         page: 'index',
         players: [],
-        modules: []
+        modules: [],
+        turrets: []
     };
 
     for (let m in modules) {
@@ -74,7 +76,18 @@ router.get('/', function (req, res) {
         });
     }
 
+    for (let t in turrets) {
+        data.turrets.push({
+            name: t,
+            id: turrets[t].id,
+            rank: turrets[t].rank,            
+            players: [],
+            times: []
+        });
+    }
+
     let moduleNames = Object.keys(modules);
+    let turretNames = Object.keys(turrets);
 
     let pr = Promise.resolve(true);
 
@@ -88,7 +101,7 @@ router.get('/', function (req, res) {
                 },
                 json: true
             })
-                .then((resp) => handlePlayer(resp, moduleNames, data))
+                .then((resp) => handlePlayer(resp, moduleNames, turretNames, data))
         )
     }
     pr.then(() => res.render('index', data));

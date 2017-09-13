@@ -1,35 +1,91 @@
 <% include header.html %>
-    
-        <table class="table table-bordered table-condensed">
-            <tr>                
-                <th colspan=3>Модуль</th>
-                <% for(var i=0; i < players.length; i++) { %>
-                    <th class="player_cell">
-                        <a href='http://ratings.tankionline.com/ru/user/<%=players[i]%>/' target='_blank'><%=players[i]%></a>
-                    </th>
-                <% } %>
-                <% for(var i=0; i < modules.length; i++) { %>
+    <div class="container-fluid">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item"><a class="nav-link active" href="#units" data-toggle="tab">Модули</a></li>
+            <li><a href="#turrets" data-toggle="tab">Пушки</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="units">
+                <table class="table table-bordered table-condensed">
                     <tr>
-                        <td class='module-rank-<%=modules[i].rank%>'><%=modules[i].rank%></td>                        
-                        <td class='module-rank-<%=modules[i].rank%>'><%=modules[i].name%></td>
-                        <td class='resistances_cell module-rank-<%=modules[i].rank%>'>
-                            <div class="resistances">
-                            <% if ( typeof modules[i].res !== 'undefined' )  { %>
-                                <% for(var j=0; j < modules[i].res.length; j++) { %>
-                                    <div class="resistance">
-                                        <div class='<%=modules[i].res[j]%>_resistance'></div>
-                                    </div>
-                                <% } %>        
-                            <% } else { %> 
-                            <%}%>
-                            </div>
-                        </td>
-                        <% for(var j=0; j < players.length; j++) { %>
-                            <% if ( modules[i].players.indexOf(players[j]) !== -1 )  { %> <td class='module-<%=modules[i].times[modules[i].players.indexOf(players[j])] < 14400000 ? "new" : "yes"%>'> <% } else { %> <td class='module-no'> <%}%> </td>
-                        <% } %>
+                        <th colspan=3>Модуль</th>
+                        <% for(var i=0; i < players.length; i++) { %>
+                            <th class="player_cell">
+                                <a href='http://ratings.tankionline.com/ru/user/<%=players[i]%>/' target='_blank'>
+                                    <%=players[i]%>
+                                </a>
+                            </th>
+                            <% } %>
                     </tr>
-                <% } %>                
-            </tr>
-        </table>
-    
-<% include footer.html %>
+                    <% for(var i=0; i < modules.length; i++) { %>
+                        <tr>
+                            <td class='module-rank-<%=modules[i].rank%>'>
+                                <%=modules[i].rank%>
+                            </td>
+                            <td class='module-rank-<%=modules[i].rank%>'>
+                                <%=modules[i].name%>
+                            </td>
+                            <td class='resistances_cell module-rank-<%=modules[i].rank%>'>
+                                <div class="resistances">
+                                    <% if ( typeof modules[i].res !== 'undefined' )  { %>
+                                        <% for(var j=0; j < modules[i].res.length; j++) { %>
+                                            <div class="resistance">
+                                                <div class='<%=modules[i].res[j]%>_resistance'></div>
+                                            </div>
+                                            <% } %>
+                                                <% } else { %>
+                                                    <%}%>
+                                </div>
+                            </td>
+                            <% for(var j=0; j < players.length; j++) { %>
+                                <% if ( modules[i].players.indexOf(players[j]) !== -1 )  { %>
+                                    <td class='module-<%=modules[i].times[modules[i].players.indexOf(players[j])] < 14400000 ? "new" : "yes"%>'>
+                                        <% } else { %>
+                                            <td class='module-no'>
+                                                <%}%>
+                                            </td>
+                                            <% } %>
+                        </tr>
+                        <% } %>
+                            </tr>
+                </table>
+            </div>
+            <div class="tab-pane fade in" id="turrets">
+                <table class="table table-bordered table-condensed">
+                    <tr>
+                        <th colspan=3>Пушка</th>
+                        <% for(var i=0; i < players.length; i++) { %>
+                            <th class="player_cell">
+                                <a href='http://ratings.tankionline.com/ru/user/<%=players[i]%>/' target='_blank'>
+                                    <%=players[i]%>
+                                </a>
+                            </th>
+                            <% } %>
+                    </tr>
+                    <% for(var i=0; i < turrets.length; i++) { %>
+                        <tr>
+                            <td class='module-rank-<%=turrets[i].rank%>'>
+                                <%=turrets[i].rank%>
+                            </td>
+                            <td class='module-rank-<%=turrets[i].rank%>'>
+                                <%=turrets[i].name%>
+                            </td>
+                            <td class='turret_cell module-rank-<%=turrets[i].rank%>'>
+                                <div class="resistance">
+                                    <div class='<%=turrets[i].id%>_resistance'></div>
+                                </div>
+                            </td>
+                            <% for(var j=0; j < players.length; j++) { %>
+                                <% if ( turrets[i].players.indexOf(players[j]) !== -1 )  { %>
+                                    <td class='module-<%=turrets[i].times[turrets[i].players.indexOf(players[j])] < 14400000 ? "new" : "yes"%>'></td>
+                                    <% } else { %>
+                                        <td class='module-no'></td>
+                                        <%}%>
+                                            <% } %>
+                        </tr>
+                        <% } %>
+                </table>
+            </div>
+        </div>
+    </div>
+    <% include footer.html %>

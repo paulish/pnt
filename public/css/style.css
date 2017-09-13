@@ -48,6 +48,11 @@ body {
     width: 96px;
 }
 
+.turret_cell {
+    padding: 0px !important;
+    width: 32px;
+}
+
 .resistance {
     background: url(/img/resistance/resistance_icon_background.png) center center no-repeat transparent;
     width: 32px;
