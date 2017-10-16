@@ -3,11 +3,20 @@ body {
 .nowrap {
     white-space: nowrap;
 }
-.module-yes {
+.module-5 {
     background-color: #980000;
 }
-.module-new {
-    background-color: #8E9800;
+.module-4 {
+    background-color: #ff0000;
+}
+.module-3 {
+    background-color: #ff9900;
+}
+.module-2 {
+    background-color: #ffff00;
+}
+.module-1 {
+    background-color: #00ff00;
 }
 
 .module-no {
