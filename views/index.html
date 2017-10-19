@@ -80,12 +80,17 @@
                                 </div>
                             </td>
                             <% for(var j=0; j < players.length; j++) { %>
-                                <% if ( turrets[i].players.indexOf(players[j]) !== -1 )  { %>
-                                    <td class='module-<%=turrets[i].times[turrets[i].players.indexOf(players[j])] < 14400000 ? "1" : "5"%>'></td>
-                                    <% } else { %>
-                                        <td class='module-no'></td>
-                                        <%}%>
-                                            <% } %>
+                                <% var moduleClass = 'no';
+                                if ( turrets[i].players.indexOf(players[j]) !== -1 )  { 
+                                    var hoursPlayed = turrets[i].times[turrets[i].players.indexOf(players[j])] / 3600000;
+                                    if (hoursPlayed > 40) moduleClass = '5';
+                                    else if (hoursPlayed > 20) moduleClass = '4';
+                                    else if (hoursPlayed > 10) moduleClass = '3';
+                                    else if (hoursPlayed > 4) moduleClass = '2';
+                                    else moduleClass = '1'
+                                } %> 
+                                <td class='module-<%=moduleClass%>'></td>
+                            <% } %>
                         </tr>
                         <% } %>
                 </table>
