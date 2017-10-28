@@ -1,8 +1,15 @@
 <% include header.html %>
     <div class="container-fluid">
         <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item"><a class="nav-link active" href="#units" data-toggle="tab">Модули</a></li>
-            <li><a href="#turrets" data-toggle="tab">Пушки</a></li>
+            <li class="nav-item">
+                <a class="nav-link active" href="#units" data-toggle="tab">Модули</a>
+            </li>
+            <li>
+                <a href="#turrets" data-toggle="tab">Пушки</a>
+            </li>
+            <li>
+                <a href="#legend" data-toggle="tab">Легенда</a>
+            </li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane fade in active" id="units">
@@ -45,10 +52,11 @@
                                     else if (hoursPlayed > 20) moduleClass = '4';
                                     else if (hoursPlayed > 10) moduleClass = '3';
                                     else if (hoursPlayed > 4) moduleClass = '2';
-                                    else moduleClass = '1'
-                                } %> 
-                                <td class='module-<%=moduleClass%>'></td>
-                            <% } %>
+                                    else if (hoursPlayed > 1) moduleClass = '1'
+                                    else moduleClass = '0'
+                                } %>
+                                    <td class='module-<%=moduleClass%>'></td>
+                                    <% } %>
                         </tr>
                         <% } %>
                             </tr>
@@ -87,12 +95,45 @@
                                     else if (hoursPlayed > 20) moduleClass = '4';
                                     else if (hoursPlayed > 10) moduleClass = '3';
                                     else if (hoursPlayed > 4) moduleClass = '2';
-                                    else moduleClass = '1'
-                                } %> 
-                                <td class='module-<%=moduleClass%>'></td>
-                            <% } %>
+                                    else if (hoursPlayed > 1) moduleClass = '1'
+                                    else moduleClass = '0'
+                                } %>
+                                    <td class='module-<%=moduleClass%>'></td>
+                                    <% } %>
                         </tr>
                         <% } %>
+                </table>
+            </div>
+            <div class="tab-pane fade in" id="legend">
+                <table class="table table-bordered table-condensed">
+                    <tr>
+                        <th>Цвет</th>
+                        <th>Значение</th>
+                    </tr>
+                    <tr>
+                        <td class='module-5'></td>
+                        <td>Больше 40 часов</td>
+                    </tr>
+                    <tr>
+                        <td class='module-4'></td>
+                        <td>Больше 20 часов</td>
+                    </tr>
+                    <tr>
+                        <td class='module-3'></td>
+                        <td>Больше 10 часов</td>
+                    </tr>
+                    <tr>
+                        <td class='module-2'></td>
+                        <td>Больше 4 часов</td>
+                    </tr>
+                    <tr>
+                        <td class='module-1'></td>
+                        <td>Больше 1 часа</td>
+                    </tr>
+                    <tr>
+                        <td class='module-0'></td>
+                        <td>Меньше 1 часа</td>
+                    </tr>
                 </table>
             </div>
         </div>
