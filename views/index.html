@@ -11,16 +11,16 @@ getRank = function(hours) {
 %>
         <div class="container-fluid">
             <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#units" data-toggle="tab">Модули</a>
+                <li role="presentation" class="active">
+                    <a href="#units" data-toggle="tab">Модули</a>
                 </li>
-                <li>
+                <li role="presentation">
                     <a href="#turrets" data-toggle="tab">Пушки</a>
                 </li>
-                <li>
+                <li role="presentation">
                     <a href="#hulls" data-toggle="tab">Корпуса</a>
                 </li>
-                <li>
+                <li role="presentation">
                     <a href="#legend" data-toggle="tab">Легенда</a>
                 </li>
             </ul>
@@ -128,7 +128,7 @@ getRank = function(hours) {
                                 </td>
                                 <td class='module-rank-<%=hulls[i].rank%>'>
                                     <%=hulls[i].name%>
-                                </td>                                
+                                </td>
                                 <% for(var j=0; j < players.length; j++) { %>
                                     <% var moduleClass = 'no';
                                     var idx = hulls[i].players.indexOf(players[j]);
