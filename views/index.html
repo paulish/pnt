@@ -1,141 +1,179 @@
 <% include header.html %>
-    <div class="container-fluid">
-        <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" href="#units" data-toggle="tab">Модули</a>
-            </li>
-            <li>
-                <a href="#turrets" data-toggle="tab">Пушки</a>
-            </li>
-            <li>
-                <a href="#legend" data-toggle="tab">Легенда</a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane fade in active" id="units">
-                <table class="table table-bordered table-condensed">
-                    <tr>
-                        <th colspan=3>Модуль</th>
-                        <% for(var i=0; i < players.length; i++) { %>
-                            <th class="player_cell">
-                                <a href='http://ratings.tankionline.com/ru/user/<%=players[i]%>/' target='_blank'>
-                                    <%=players[i]%>
-                                </a>
-                            </th>
-                            <% } %>
-                    </tr>
-                    <% for(var i=0; i < modules.length; i++) { %>
+    <%
+getRank = function(hours) {
+    if (hours > 40) return 5;
+    if (hours > 20) return 4;
+    if (hours > 10) return 3;
+    if (hours > 4) return 2;
+    if (hours > 1) return 1;
+    return 0;
+}
+%>
+        <div class="container-fluid">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#units" data-toggle="tab">Модули</a>
+                </li>
+                <li>
+                    <a href="#turrets" data-toggle="tab">Пушки</a>
+                </li>
+                <li>
+                    <a href="#hulls" data-toggle="tab">Корпуса</a>
+                </li>
+                <li>
+                    <a href="#legend" data-toggle="tab">Легенда</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="units">
+                    <table class="table table-bordered table-condensed">
                         <tr>
-                            <td class='module-rank-<%=modules[i].rank%>'>
-                                <%=modules[i].rank%>
-                            </td>
-                            <td class='module-rank-<%=modules[i].rank%>'>
-                                <%=modules[i].name%>
-                            </td>
-                            <td class='resistances_cell module-rank-<%=modules[i].rank%>'>
-                                <div class="resistances">
-                                    <% if ( typeof modules[i].res !== 'undefined' )  { %>
-                                        <% for(var j=0; j < modules[i].res.length; j++) { %>
-                                            <div class="resistance">
-                                                <div class='<%=modules[i].res[j]%>_resistance'></div>
-                                            </div>
-                                            <% } %>
-                                                <% } else { %>
-                                                    <%}%>
-                                </div>
-                            </td>
-                            <% for(var j=0; j < players.length; j++) { %>
-                                <% var moduleClass = 'no';
-                                if ( modules[i].players.indexOf(players[j]) !== -1 )  { 
-                                    var hoursPlayed = modules[i].times[modules[i].players.indexOf(players[j])] / 3600000;
-                                    if (hoursPlayed > 40) moduleClass = '5';
-                                    else if (hoursPlayed > 20) moduleClass = '4';
-                                    else if (hoursPlayed > 10) moduleClass = '3';
-                                    else if (hoursPlayed > 4) moduleClass = '2';
-                                    else if (hoursPlayed > 1) moduleClass = '1'
-                                    else moduleClass = '0'
-                                } %>
-                                    <td class='module-<%=moduleClass%>'></td>
-                                    <% } %>
+                            <th colspan=3>Модуль</th>
+                            <% for(var i=0; i < players.length; i++) { %>
+                                <th class="player_cell">
+                                    <a href='http://ratings.tankionline.com/ru/user/<%=players[i]%>/' target='_blank'>
+                                        <%=players[i]%>
+                                    </a>
+                                </th>
+                                <% } %>
                         </tr>
-                        <% } %>
+                        <% for(var i=0; i < modules.length; i++) { %>
+                            <tr>
+                                <td class='module-rank-<%=modules[i].rank%>'>
+                                    <%=modules[i].rank%>
+                                </td>
+                                <td class='module-rank-<%=modules[i].rank%>'>
+                                    <%=modules[i].name%>
+                                </td>
+                                <td class='resistances_cell module-rank-<%=modules[i].rank%>'>
+                                    <div class="resistances">
+                                        <% if ( typeof modules[i].res !== 'undefined' )  { %>
+                                            <% for(var j=0; j < modules[i].res.length; j++) { %>
+                                                <div class="resistance">
+                                                    <div class='<%=modules[i].res[j]%>_resistance'></div>
+                                                </div>
+                                                <% } %>
+                                                    <% } else { %>
+                                                        <%}%>
+                                    </div>
+                                </td>
+                                <% for(var j=0; j < players.length; j++) { %>
+                                    <% var moduleClass = 'no';
+                                var idx = modules[i].players.indexOf(players[j]);
+                                if (idx !== -1 )  { 
+                                    var hoursPlayed = modules[i].times[idx] / 3600000;
+                                    moduleClass = getRank(hoursPlayed);                                    
+                                } %>
+                                        <td class='module-<%=moduleClass%>'></td>
+                                        <% } %>
                             </tr>
-                </table>
-            </div>
-            <div class="tab-pane fade in" id="turrets">
-                <table class="table table-bordered table-condensed">
-                    <tr>
-                        <th colspan=3>Пушка</th>
-                        <% for(var i=0; i < players.length; i++) { %>
-                            <th class="player_cell">
-                                <a href='http://ratings.tankionline.com/ru/user/<%=players[i]%>/' target='_blank'>
-                                    <%=players[i]%>
-                                </a>
-                            </th>
                             <% } %>
-                    </tr>
-                    <% for(var i=0; i < turrets.length; i++) { %>
+                                </tr>
+                    </table>
+                </div>
+                <div class="tab-pane fade in" id="turrets">
+                    <table class="table table-bordered table-condensed">
                         <tr>
-                            <td class='module-rank-<%=turrets[i].rank%>'>
-                                <%=turrets[i].rank%>
-                            </td>
-                            <td class='module-rank-<%=turrets[i].rank%>'>
-                                <%=turrets[i].name%>
-                            </td>
-                            <td class='turret_cell module-rank-<%=turrets[i].rank%>'>
-                                <div class="resistance">
-                                    <div class='<%=turrets[i].id%>_resistance'></div>
-                                </div>
-                            </td>
-                            <% for(var j=0; j < players.length; j++) { %>
-                                <% var moduleClass = 'no';
-                                if ( turrets[i].players.indexOf(players[j]) !== -1 )  { 
-                                    var hoursPlayed = turrets[i].times[turrets[i].players.indexOf(players[j])] / 3600000;
-                                    if (hoursPlayed > 40) moduleClass = '5';
-                                    else if (hoursPlayed > 20) moduleClass = '4';
-                                    else if (hoursPlayed > 10) moduleClass = '3';
-                                    else if (hoursPlayed > 4) moduleClass = '2';
-                                    else if (hoursPlayed > 1) moduleClass = '1'
-                                    else moduleClass = '0'
-                                } %>
-                                    <td class='module-<%=moduleClass%>'></td>
-                                    <% } %>
+                            <th colspan=3>Пушка</th>
+                            <% for(var i=0; i < players.length; i++) { %>
+                                <th class="player_cell">
+                                    <a href='http://ratings.tankionline.com/ru/user/<%=players[i]%>/' target='_blank'>
+                                        <%=players[i]%>
+                                    </a>
+                                </th>
+                                <% } %>
                         </tr>
-                        <% } %>
-                </table>
-            </div>
-            <div class="tab-pane fade in" id="legend">
-                <table class="table table-bordered table-condensed">
-                    <tr>
-                        <th>Цвет</th>
-                        <th>Значение</th>
-                    </tr>
-                    <tr>
-                        <td class='module-5'></td>
-                        <td>Больше 40 часов</td>
-                    </tr>
-                    <tr>
-                        <td class='module-4'></td>
-                        <td>Больше 20 часов</td>
-                    </tr>
-                    <tr>
-                        <td class='module-3'></td>
-                        <td>Больше 10 часов</td>
-                    </tr>
-                    <tr>
-                        <td class='module-2'></td>
-                        <td>Больше 4 часов</td>
-                    </tr>
-                    <tr>
-                        <td class='module-1'></td>
-                        <td>Больше 1 часа</td>
-                    </tr>
-                    <tr>
-                        <td class='module-0'></td>
-                        <td>Меньше 1 часа</td>
-                    </tr>
-                </table>
+                        <% for(var i=0; i < turrets.length; i++) { %>
+                            <tr>
+                                <td class='module-rank-<%=turrets[i].rank%>'>
+                                    <%=turrets[i].rank%>
+                                </td>
+                                <td class='module-rank-<%=turrets[i].rank%>'>
+                                    <%=turrets[i].name%>
+                                </td>
+                                <td class='turret_cell module-rank-<%=turrets[i].rank%>'>
+                                    <div class="resistance">
+                                        <div class='<%=turrets[i].id%>_resistance'></div>
+                                    </div>
+                                </td>
+                                <% for(var j=0; j < players.length; j++) { %>
+                                    <% var moduleClass = 'no';
+                                var idx = turrets[i].players.indexOf(players[j]);
+                                if (idx !== -1 )  { 
+                                    var hoursPlayed = turrets[i].times[idx] / 3600000;
+                                    moduleClass = getRank(hoursPlayed);                                    
+                                } %>
+                                        <td class='module-<%=moduleClass%>'></td>
+                                        <% } %>
+                            </tr>
+                            <% } %>
+                    </table>
+                </div>
+                <div class="tab-pane fade in" id="hulls">
+                    <table class="table table-bordered table-condensed">
+                        <tr>
+                            <th colspan=2>Корпус</th>
+                            <% for(var i=0; i < players.length; i++) { %>
+                                <th class="player_cell">
+                                    <a href='http://ratings.tankionline.com/ru/user/<%=players[i]%>/' target='_blank'>
+                                        <%=players[i]%>
+                                    </a>
+                                </th>
+                                <% } %>
+                        </tr>
+                        <% for(var i=0; i < hulls.length; i++) { %>
+                            <tr>
+                                <td class='module-rank-<%=hulls[i].rank%>'>
+                                    <%=hulls[i].rank%>
+                                </td>
+                                <td class='module-rank-<%=hulls[i].rank%>'>
+                                    <%=hulls[i].name%>
+                                </td>                                
+                                <% for(var j=0; j < players.length; j++) { %>
+                                    <% var moduleClass = 'no';
+                                    var idx = hulls[i].players.indexOf(players[j]);
+                                    if (idx !== -1 )  { 
+                                        var hoursPlayed = hulls[i].times[idx] / 3600000;
+                                        moduleClass = getRank(hoursPlayed);                                    
+                                    } %>
+                                        <td class='module-<%=moduleClass%>'></td>
+                                        <% } %>
+                            </tr>
+                            <% } %>
+                    </table>
+                </div>
+                <div class="tab-pane fade in" id="legend">
+                    <table class="table table-bordered table-condensed">
+                        <tr>
+                            <th>Цвет</th>
+                            <th>Значение</th>
+                        </tr>
+                        <tr>
+                            <td class='module-5'></td>
+                            <td>Больше 40 часов</td>
+                        </tr>
+                        <tr>
+                            <td class='module-4'></td>
+                            <td>Больше 20 часов</td>
+                        </tr>
+                        <tr>
+                            <td class='module-3'></td>
+                            <td>Больше 10 часов</td>
+                        </tr>
+                        <tr>
+                            <td class='module-2'></td>
+                            <td>Больше 4 часов</td>
+                        </tr>
+                        <tr>
+                            <td class='module-1'></td>
+                            <td>Больше 1 часа</td>
+                        </tr>
+                        <tr>
+                            <td class='module-0'></td>
+                            <td>Меньше 1 часа</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
-    <% include footer.html %>
+        <% include footer.html %>

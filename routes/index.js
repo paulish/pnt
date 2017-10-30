@@ -4,6 +4,7 @@ const request = require('request-promise');
 const players = require('../lib/players');
 const modules = require('../lib/modules');
 const turrets = require('../lib/turrets');
+const hulls = require('../lib/hulls');
 
 const extractRes = (props) => {
     let res = [];
@@ -13,7 +14,7 @@ const extractRes = (props) => {
     return res;
 }
 
-const handlePlayer = (resp, moduleNames, turretNames, data) => {
+const handlePlayer = (resp, moduleNames, turretNames, hullNames, data) => {
     if (resp && resp.responseType === 'OK') {
         let player = resp.response;
         data.players.push(player.name);
@@ -55,6 +56,26 @@ const handlePlayer = (resp, moduleNames, turretNames, data) => {
                 }
             }
         }
+
+        for (let h of player.hullsPlayed) {
+            if (h.grade === 3) {
+                let idx = hullNames.indexOf(h.name);
+                if (idx !== -1) {
+                    data.hulls[idx].players.push(player.name);
+                    data.hulls[idx].times.push(h.timePlayed);
+                } else {
+                    idx = hullNames.length;
+                    hullNames.push(h.name);
+                    data.hulls.push({
+                        name: h.name,
+                        rank: 4,
+                        id: '',
+                        players: [player.name],
+                        times: [h.timePlayed]
+                    })
+                }
+            }
+        }
     }
 }
 
@@ -63,7 +84,8 @@ router.get('/', function (req, res) {
         page: 'index',
         players: [],
         modules: [],
-        turrets: []
+        turrets: [],
+        hulls: []
     };
 
     for (let m in modules) {
@@ -86,8 +108,19 @@ router.get('/', function (req, res) {
         });
     }
 
+    for (let h in hulls) {
+        data.hulls.push({
+            name: h,
+            id: hulls[h].id,
+            rank: hulls[h].rank,            
+            players: [],
+            times: []
+        });
+    }
+
     let moduleNames = Object.keys(modules);
     let turretNames = Object.keys(turrets);
+    let hullNames = Object.keys(hulls);
 
     let pr = Promise.resolve(true);
 
@@ -101,7 +134,7 @@ router.get('/', function (req, res) {
                 },
                 json: true
             })
-                .then((resp) => handlePlayer(resp, moduleNames, turretNames, data))
+                .then((resp) => handlePlayer(resp, moduleNames, turretNames, hullNames, data))
         )
     }
     pr.then(() => res.render('index', data));
