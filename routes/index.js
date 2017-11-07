@@ -14,10 +14,10 @@ const extractRes = (props) => {
     return res;
 }
 
-const handlePlayer = (resp, moduleNames, turretNames, hullNames, data) => {
+const handlePlayer = (req, resp, moduleNames, turretNames, hullNames, data) => {
     if (resp && resp.responseType === 'OK') {
         let player = resp.response;
-        data.players.push(player.name);
+        data.players.push({ name: player.name, tag: req.tag });
         for (let m of player.resistanceModules) {
             if (m.grade === 3) {
                 let idx = moduleNames.indexOf(m.name);
@@ -102,7 +102,7 @@ router.get('/', function (req, res) {
         data.turrets.push({
             name: t,
             id: turrets[t].id,
-            rank: turrets[t].rank,            
+            rank: turrets[t].rank,
             players: [],
             times: []
         });
@@ -112,7 +112,7 @@ router.get('/', function (req, res) {
         data.hulls.push({
             name: h,
             id: hulls[h].id,
-            rank: hulls[h].rank,            
+            rank: hulls[h].rank,
             players: [],
             times: []
         });
@@ -129,12 +129,12 @@ router.get('/', function (req, res) {
             request({
                 uri: 'http://ratings.tankionline.com/get_stat/profile/',
                 qs: {
-                    user: player,
+                    user: player.name,
                     lang: 'ru'
                 },
                 json: true
             })
-                .then((resp) => handlePlayer(resp, moduleNames, turretNames, hullNames, data))
+                .then((resp) => handlePlayer(player, resp, moduleNames, turretNames, hullNames, data))
         )
     }
     pr.then(() => res.render('index', data));
