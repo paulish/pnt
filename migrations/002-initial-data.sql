@@ -2,7 +2,7 @@
 
 INSERT INTO PLAYER (name, tag) VALUES ('paulish', 'PNT');
 INSERT INTO PLAYER (name, tag) VALUES ('A_G_R_O_N_O_M', 'PNT');
-INSERT INTO PLAYER (name, tag) VALUES ('sherxan', 'PNT');
+INSERT INTO PLAYER (name, tag) VALUES ('SherXan', 'PNT');
 INSERT INTO PLAYER (name, tag) VALUES ('CkuJIJIa_HET', 'PNT');
 INSERT INTO PLAYER (name, tag) VALUES ('Kira-5let', 'PNT');
 INSERT INTO PLAYER (name, tag) VALUES ('K_H_9l_3_b-T_b_M_bl', 'PNT');

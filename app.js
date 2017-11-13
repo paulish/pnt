@@ -3,7 +3,6 @@ const express = require('express');
 const logger = require('morgan');
 const compression = require('compression');
 const db = require('./lib/db');
-const Updater = require('./lib/updater');
 
 let app = express();
 
@@ -38,11 +37,8 @@ app.use(function (err, req, res, next) {
     console.log(err);
 });
 
-let port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
+let port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8000;
 let ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
-
-// let updater = new Updater('http://ratings.tankionline.com/get_stat/profile/', db);
-// return updater.updatePlayers();
 
 db.init(path.join(__dirname, 'tanki.sqlite'))
     .catch(err => console.error(err.message, err.stack))
