@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS player_modules(
   idmodule integer not null, 
   time_played integer not null, 
   mu integer,
+  crdate datetime default CURRENT_TIMESTAMP,
   FOREIGN KEY(idplayer) REFERENCES player(id) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY(idmodule) REFERENCES module(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
@@ -16,6 +17,7 @@ CREATE TABLE IF NOT EXISTS player_hulls(
   idhull integer not null, 
   time_played integer not null, 
   mu integer,
+  crdate datetime default CURRENT_TIMESTAMP,
   FOREIGN KEY(idplayer) REFERENCES player(id) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY(idhull) REFERENCES hull(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
@@ -24,6 +26,7 @@ CREATE TABLE IF NOT EXISTS player_turrets(
   idturret integer not null, 
   time_played integer not null, 
   mu integer,
+  crdate datetime default CURRENT_TIMESTAMP,
   FOREIGN KEY(idplayer) REFERENCES player(id) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY(idturret) REFERENCES turret(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
