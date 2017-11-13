@@ -2,6 +2,8 @@ const path = require('path');
 const express = require('express');
 const logger = require('morgan');
 const compression = require('compression');
+const db = require('./lib/db');
+const Updater = require('./lib/updater');
 
 let app = express();
 
@@ -39,9 +41,16 @@ app.use(function (err, req, res, next) {
 let port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
 let ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
-let server = app.listen(port, ip, function () {
-    console.log('Express server listening on port ' + server.address().port);
-});
-console.log('Server running on http://%s:%s', ip, port);
+// let updater = new Updater('http://ratings.tankionline.com/get_stat/profile/', db);
+// return updater.updatePlayers();
+
+db.init(path.join(__dirname, 'tanki.sqlite'))
+    .catch(err => console.error(err.message, err.stack))
+    .then(() => {
+        let server = app.listen(port, ip, function () {
+            console.log('Express server listening on port ' + server.address().port);
+        });
+        console.log('Server running on http://%s:%s', ip, port);
+    });
 
 module.exports = app;
