@@ -49,4 +49,9 @@ db.init(path.join(__dirname, 'tanki.sqlite'))
         console.log('Server running on http://%s:%s', ip, port);
     });
 
+process.on('SIGINT', () => {    
+    db.finalize()
+        .then(_ => process.exit());
+});
+
 module.exports = app;
