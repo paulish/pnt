@@ -8,6 +8,14 @@ getRank = function(hours) {
     if (hours > 1) return 1;
     return 0;
 }
+
+getPlayerName = function(player) {
+    var res = '';
+    if (player.tag) {
+        res = '[' + player.tag + '] ';
+    }    
+    return res + player.name;
+}
 %>
         <div class="container-fluid">
             <ul class="nav nav-tabs" role="tablist">
@@ -32,7 +40,7 @@ getRank = function(hours) {
                             <% for(var i=0; i < players.length; i++) { %>
                                 <th class="player_cell">
                                     <a href='http://ratings.tankionline.com/ru/user/<%=players[i].name%>/' target='_blank'>
-                                        [<%=players[i].tag%>] <%=players[i].name%>
+                                        <%=getPlayerName(players[i])%>
                                     </a>
                                 </th>
                                 <% } %>
@@ -78,7 +86,7 @@ getRank = function(hours) {
                             <% for(var i=0; i < players.length; i++) { %>
                                 <th class="player_cell">
                                     <a href='http://ratings.tankionline.com/ru/user/<%=players[i].name%>/' target='_blank'>
-                                        [<%=players[i].tag%>] <%=players[i].name%>
+                                        <%=getPlayerName(players[i])%>
                                     </a>
                                 </th>
                                 <% } %>
@@ -116,7 +124,7 @@ getRank = function(hours) {
                             <% for(var i=0; i < players.length; i++) { %>
                                 <th class="player_cell">
                                     <a href='http://ratings.tankionline.com/ru/user/<%=players[i].name%>/' target='_blank'>
-                                        [<%=players[i].tag%>] <%=players[i].name%>
+                                        <%=getPlayerName(players[i])%>
                                     </a>
                                 </th>
                                 <% } %>
