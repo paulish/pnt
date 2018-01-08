@@ -5,6 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "compression": "^1.7.0",
+    "discord.js": "^11.2.1",
     "ejs": "^2.5.7",
     "express": "^4.15.4",
     "morgan": "^1.8.2",

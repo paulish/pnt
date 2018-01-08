@@ -4,7 +4,7 @@ INSERT INTO PLAYER (name, tag, idx) VALUES ('paulish', 'PNT', 1);
 INSERT INTO PLAYER (name, tag, idx) VALUES ('A_G_R_O_N_O_M', 'PNT', 2);
 INSERT INTO PLAYER (name, tag, idx) VALUES ('Kira-5let', 'PNT', 3);
 INSERT INTO PLAYER (name, tag, idx) VALUES ('K_H_9l_3_b-T_b_M_bl', 'PNT', 4);
-INSERT INTO PLAYER (name, tag, idx) VALUES ('Whisky', 'PNT', 5);
+INSERT INTO PLAYER (name, tag, idx) VALUES ('AMA3OHKA_B_TAHKE', 'PNT', 5);
 INSERT INTO PLAYER (name, tag, idx) VALUES ('npocmume', 'PNT', 6);
 INSERT INTO PLAYER (name, tag, idx) VALUES ('kratasuk85', 'PNT', 7);
 
@@ -14,17 +14,20 @@ INSERT INTO PLAYER (name, tag) VALUES ('evgen150rus', 'nHm');
 INSERT INTO PLAYER (name, tag) VALUES ('Pikassic', 'nHm');
 INSERT INTO PLAYER (name, tag) VALUES ('6eru_OT-MeH9l', 'nHm');
 INSERT INTO PLAYER (name, tag) VALUES ('xxx_LLI_u_x_a_H_xxx', 'nHm');
+INSERT INTO PLAYER (name, tag) VALUES ('egor55555_tankist', 'nHm');
 
-INSERT INTO PLAYER (name, tag) VALUES ('egor55555_tankist', 'PNT2');
-
-INSERT INTO PLAYER (name, tag) VALUES ('SherXan', null);
 INSERT INTO PLAYER (name, tag) VALUES ('CkuJIJIa_HET', null);
 INSERT INTO PLAYER (name, tag) VALUES ('KyKoJIkA', null);
 INSERT INTO PLAYER (name, tag) VALUES ('D_O_H_6_A_C_C', null);
 INSERT INTO PLAYER (name, tag) VALUES ('olga7410', null);
 INSERT INTO PLAYER (name, tag) VALUES ('AleAnA', null);
-INSERT INTO PLAYER (name, tag) VALUES ('Mex1111.ru', null);
-INSERT INTO PLAYER (name, tag) VALUES ('SWALLOW_THE_SUN', null);
+INSERT INTO PLAYER (name, tag) VALUES ('Ms.Sharm', null);
+INSERT INTO PLAYER (name, tag) VALUES ('Mr.Shram', null);
+INSERT INTO PLAYER (name, tag) VALUES ('9I_CAH9I', null);
+INSERT INTO PLAYER (name, tag) VALUES ('gergu100', null);
+INSERT INTO PLAYER (name, tag) VALUES ('serg-13021975', null);
+--INSERT INTO PLAYER (name, tag) VALUES ('Mex1111.ru', null);
+--INSERT INTO PLAYER (name, tag) VALUES ('SWALLOW_THE_SUN', null);
 
 INSERT INTO module (name, "rank", res1, res2, res3, idx) VALUES('Лев T-B', 1, 'firebird', 'twins', 'ricochet', 1);
 INSERT INTO module (name, "rank", res1, res2, res3, idx) VALUES('Барсук T-F', 1, 'firebird', 'freeze', 'twins', 2);

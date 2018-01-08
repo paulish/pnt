@@ -1,5 +1,5 @@
 <% include header.html %>
-    <%
+<%
 getRank = function(hours) {
     if (hours > 40) return 5;
     if (hours > 20) return 4;
@@ -16,6 +16,15 @@ getPlayerName = function(player) {
     }    
     return res + player.name;
 }
+
+getPlayerInfo = function(name, items) {
+    var idx = items.players.indexOf(name);
+    if (idx !== -1 ) { 
+        return {cls: getRank(items.info[idx].time / 3600000), mu: items.info[idx].mu};
+    } else {
+        return {cls: 'no', mu: undefined};
+    }
+}
 %>
         <div class="container-fluid">
             <ul class="nav nav-tabs" role="tablist">
@@ -30,6 +39,9 @@ getPlayerName = function(player) {
                 </li>
                 <li role="presentation">
                     <a href="#legend" data-toggle="tab">Легенда</a>
+                </li>
+                <li role="presentation">
+                    <a href="#manage" data-toggle="tab">Управление</a>
                 </li>
             </ul>
             <div class="tab-content">
@@ -66,14 +78,9 @@ getPlayerName = function(player) {
                                     </div>
                                 </td>
                                 <% for(var j=0; j < players.length; j++) { %>
-                                    <% var moduleClass = 'no';
-                                var idx = modules[i].players.indexOf(players[j].name);
-                                if (idx !== -1 )  { 
-                                    var hoursPlayed = modules[i].times[idx] / 3600000;
-                                    moduleClass = getRank(hoursPlayed);                                    
-                                } %>
-                                        <td class='module-<%=moduleClass%>'></td>
-                                        <% } %>
+                                    <% var info = getPlayerInfo(players[j].name, modules[i]);%>
+                                        <td class='module-<%=info.cls%>'><span class="badge"><%=info.mu%></span></td>
+                                    <% } %>
                             </tr>
                             <% } %>
                                 </tr>
@@ -105,14 +112,9 @@ getPlayerName = function(player) {
                                     </div>
                                 </td>
                                 <% for(var j=0; j < players.length; j++) { %>
-                                    <% var moduleClass = 'no';
-                                var idx = turrets[i].players.indexOf(players[j].name);
-                                if (idx !== -1 )  { 
-                                    var hoursPlayed = turrets[i].times[idx] / 3600000;
-                                    moduleClass = getRank(hoursPlayed);                                    
-                                } %>
-                                        <td class='module-<%=moduleClass%>'></td>
-                                        <% } %>
+                                    <% var info = getPlayerInfo(players[j].name, turrets[i]); %>
+                                        <td class='module-<%=info.cls%>'><%=info.mu%></td>
+                                    <% } %>
                             </tr>
                             <% } %>
                     </table>
@@ -138,14 +140,9 @@ getPlayerName = function(player) {
                                     <%=hulls[i].name%>
                                 </td>
                                 <% for(var j=0; j < players.length; j++) { %>
-                                    <% var moduleClass = 'no';
-                                    var idx = hulls[i].players.indexOf(players[j].name);
-                                    if (idx !== -1 )  { 
-                                        var hoursPlayed = hulls[i].times[idx] / 3600000;
-                                        moduleClass = getRank(hoursPlayed);                                    
-                                    } %>
-                                        <td class='module-<%=moduleClass%>'></td>
-                                        <% } %>
+                                    <% var info = getPlayerInfo(players[j].name, hulls[i]); %>
+                                        <td class='module-<%=info.cls%>'><%=info.mu%></td>
+                                    <% } %>
                             </tr>
                             <% } %>
                     </table>
@@ -181,6 +178,9 @@ getPlayerName = function(player) {
                             <td>Меньше 1 часа</td>
                         </tr>
                     </table>
+                </div>
+                <div class="tab-pane fade in" id="manage">
+                    <a class="btn btn-default" href="/update" role="button">Обновить</a>
                 </div>
             </div>
         </div>
