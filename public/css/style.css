@@ -91,7 +91,7 @@ body {
 }
 
 .resistance .shotgun_resistance {
-    background: url(/img/resistance/hammer_resistance.png) center center no-repeat transparent;
+    background: url(/img/resistance/shotgun_resistance.png) center center no-repeat transparent;
 }
 
 .resistance .isis_resistance {
@@ -127,7 +127,7 @@ body {
 }
 
 .resistance .machine_gun_resistance {
-    background: url(/img/resistance/vulcan_resistance.png) center center no-repeat transparent;
+    background: url(/img/resistance/machine_gun_resistance.png) center center no-repeat transparent;
 }
 
 .resistance .rocket_launcher_resistance {
