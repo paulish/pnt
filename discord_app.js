@@ -1,11 +1,12 @@
 const path = require('path');
 const Discord = require('discord.js');
+const Az = require('az');
 const Commands = require('./lib/commands')
 const db = require('./lib/db');
 const cmdTanks = require('./lib/cmdTanks');
 
 const client = new Discord.Client();
-const token = '';
+const token = require('./consts/discordToken');
 const commands = new Commands();
 cmdTanks.addCommands(commands);
 
@@ -22,7 +23,7 @@ db.init(path.join(__dirname, 'tanki.sqlite'))
   .catch(err => console.error(err.message, err.stack))
   .then(() => {
     commands.initialize();
-    client.login(token);
+    Az.Morph.init(() => client.login(token));
   });
 
 process.on('SIGINT', () => {
