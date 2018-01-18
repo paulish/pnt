@@ -5,7 +5,7 @@ const db = require('./lib/db');
 const cmdTanks = require('./lib/cmdTanks');
 
 const client = new Discord.Client();
-const token = '';
+const token = 'Mzk5ODgwMTE4NzUyNzcyMDk2.DTTg5g.sPL5HDUfbAYXUUv6kZr5fv8LN8E';
 const commands = new Commands();
 cmdTanks.addCommands(commands);
 
